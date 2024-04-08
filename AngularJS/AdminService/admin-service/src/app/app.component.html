@@ -1,0 +1,226 @@
+<div class="">
+  <div style="height:100vh;">
+
+   <div class="">
+    
+     <div class="shadow w-20 p-5 position-absolute top-50 start-50 translate-middle">
+       <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+         <h4 class="display-6 text-center py-2">Admin Database</h4>
+        <div class="">
+          <label for="a_id">Admin ID </label>
+          <div class="">
+            <input id="a_id" required #a_id="ngModel" (ngModel)="a_id" name="a_id" type="text"  
+            class="form-control" placeholder="enter your Admin ID" pattern="(^\d{9}$)">
+            <div *ngIf="a_id.invalid && a_id.touched">
+              <small class="text-danger" *ngIf="a_id.errors?.['required']">Required
+
+              </small>
+              <small class="text-danger" *ngIf="a_id.errors?.['pattern']">Must be a valid number
+              </small>
+
+            </div>
+            
+          </div>
+        </div><br>
+        <div class="">
+          <label for="a_name">User Name </label>
+          <div class="">
+            <input id="a_name" required #a_name="ngModel" (ngModel)="a_name" name="a_name" type="text"  
+            class="form-control" placeholder="enter your name">
+            <div *ngIf="a_name.invalid && a_name.touched">
+              <small class="text-danger" *ngIf="a_name.errors?.['required']">Required
+              </small>
+            </div>
+            
+          </div>
+        </div><br>
+        <div class="">
+          <label for="a_pass">Password </label>
+          <div class="">
+            <input id="a_pass" required #a_pass="ngModel" (ngModel)="a_pass" name="a_pass" type="password"  
+            class="form-control" placeholder="enter your Password">
+            <div *ngIf="a_pass.invalid && a_pass.touched">
+              <small class="text-danger" *ngIf="a_pass.errors?.['required']">Required
+              </small>
+            </div>
+          </div>
+        </div><br>
+        
+        <div class="">
+          <label for="email">Email </label>
+          <div class="">
+            <input id="email" required #email="ngModel" (ngModel)="email" name="email" type="email"  
+            class="form-control" placeholder="enter your email">
+            <div *ngIf="email.invalid && email.touched">
+              <small class="text-danger" *ngIf="email.errors?.['required']">Required
+              </small>
+            </div>
+            
+          </div>
+        </div><br>
+        <div class="">
+          <label for="role">Role </label>
+          <div class="">
+            <input id="role" required #role="ngModel" (ngModel)="role" name="role" type="text"  
+            class="form-control" placeholder="enter your Role">
+            <div *ngIf="role.invalid && role.touched">
+              <small class="text-danger" *ngIf="role.errors?.['required']">Required
+              </small>
+            </div>
+            
+          </div>
+        </div><br>
+        <div class="">
+          <label for="address">Address </label>
+          <div class="">
+            <input id="address" required #address="ngModel" (ngModel)="address" name="address" type="text"  
+            class="form-control" placeholder="enter your Address">
+            <div *ngIf="address.invalid && address.touched">
+              <small class="text-danger" *ngIf="address.errors?.['required']">Required
+              </small>
+            </div>
+            
+          </div>
+        </div><br>
+  
+        <div class="form-group text-center">
+          <input class="btn btn-primary" type="submit" value="submit">
+        </div>
+      </form>
+     </div>
+   </div>
+</div><br>
+<div class="mt-5">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Admin ID</th>
+        <th>User Name</th>
+        <th>Password</th>
+        <th>Email</th>
+        <th>Roll</th>
+        <th>Address</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let admin of adminDetails">
+        <td>{{admin.a_id}}</td>
+        <td>{{admin.a_name}}</td>
+        <td>{{admin.a_pass}}</td>
+        <td>{{admin.email}}</td>
+        <td>{{admin.role}}</td>
+        <td>{{admin.address}}</td>
+        <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="edit(admin)">Edit</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="deleteAdmin(admin)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Admin</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #updateForm="ngForm" (ngSubmit)="updateAdmin()">
+          <h4 class="display-6 text-center py-2">Admin Database</h4>
+         <div class="">
+           <label for="a_id">Admin ID </label>
+           <div class="">
+             <input id="a_id" required #a_id="ngModel" [(ngModel)]="adminToUpdate.a_id" name="a_id" type="text"  
+             class="form-control" placeholder="enter your admin ID" pattern="(^\d{9}$)">
+             <div *ngIf="a_id.invalid && a_id.touched">
+               <small class="text-danger" *ngIf="a_id.errors?.['required']">Required
+ 
+               </small>
+               <small class="text-danger" *ngIf="a_id.errors?.['pattern']">Must be a valid number
+               </small>
+ 
+             </div>
+             
+           </div>
+         </div><br>
+         <div class="">
+           <label for="a_name">User Name </label>
+           <div class="">
+             <input id="a_name" required #a_name="ngModel" [(ngModel)]="adminToUpdate.a_name" name="a_name" type="text"  
+             class="form-control" placeholder="enter your user name">
+             <div *ngIf="a_name.invalid && a_name.touched">
+               <small class="text-danger" *ngIf="a_name.errors?.['required']">Required
+               </small>
+             </div>
+             
+           </div>
+         </div><br>
+         <div class="">
+           <label for="a_pass">Password </label>
+           <div class="">
+             <input id="a_pass" required #a_pass="ngModel" [(ngModel)]="adminToUpdate.a_pass" name="a_pass" type="password"  
+             class="form-control" placeholder="enter your Password">
+             <div *ngIf="a_pass.invalid && a_pass.touched">
+               <small class="text-danger" *ngIf="a_pass.errors?.['required']">Required
+               </small>
+             </div>
+             
+           </div>
+         </div><br>
+         <div class="">
+           <label for="email">Email </label>
+           <div class="">
+             <input id="email" required #email="ngModel" [(ngModel)]="adminToUpdate.email" name="email" type="email"  
+             class="form-control" placeholder="enter your email">
+             <div *ngIf="email.invalid && email.touched">
+               <small class="text-danger" *ngIf="email.errors?.['required']">Required
+               </small>
+             </div>
+             
+           </div>
+         </div><br>
+         <div class="">
+          <label for="role">Role </label>
+          <div class="">
+            <input id="role" required #role="ngModel" [(ngModel)]="adminToUpdate.role" name="role" type="text"  
+            class="form-control" placeholder="enter your role">
+            <div *ngIf="role.invalid && role.touched">
+              <small class="text-danger" *ngIf="role.errors?.['required']">Required
+              </small>
+            </div>
+            
+          </div>
+        </div><br>
+        <div class="">
+          <label for="address">Address </label>
+          <div class="">
+            <input id="address" required #address="ngModel" [(ngModel)]="adminToUpdate.address" name="address" type="text"  
+            class="form-control" placeholder="enter your address">
+            <div *ngIf="address.invalid && address.touched">
+              <small class="text-danger" *ngIf="address.errors?.['required']">Required
+              </small>
+            </div>
+            
+          </div>
+        </div><br>
+     
+         <div class="form-group text-center">
+           <input class="btn btn-primary" type="submit" value="update">
+         </div>
+       </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+  <!-- Your form inputs and validation messages here -->
+  
+  <div class="form-group text-center">
+    <input class="btn btn-primary" type="submit" value="submit">
+  </div>
+</form>
